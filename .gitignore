@@ -2,3 +2,9 @@
 
 /back/node_modules
 /back/.env
+/front/.env
+/front/node_modules
+/back/.npm
+/front/.npm
+/back/.node_repl_history
+/front/.node_repl_history

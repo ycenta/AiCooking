@@ -7,6 +7,10 @@
 
 ## Setup
 
+```
+cd back
+```
+
 ```bash
 cp .env.example .env
 ```

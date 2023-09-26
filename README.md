@@ -16,7 +16,7 @@ cp .env.example .env
 ```
 
 ```env
-OPENAI_API_KEY="sk-tB9B3zKK76ALzjfUVOtWT3BlbkFJjzww"
+OPENAI_API_KEY="SQUEEZIEGAMING"
 ```
 
 ## Docker Compose Services Startup
@@ -42,3 +42,11 @@ docker-compose exec node npm start
 ```bash
 docker-compose down --remove-orphans --volumes
 ```
+
+
+# Front setup 
+Now run:
+
+  cd front \
+  npm install \
+  npm run dev

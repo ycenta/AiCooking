@@ -1,6 +1,6 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
+  width: 100%;
+  /* margin: 0 auto; */
   padding: 2rem;
   text-align: center;
 }
@@ -39,4 +39,32 @@
 
 .read-the-docs {
   color: #888;
+}
+
+.mainTitle {
+  font-size: 1em;
+  margin-bottom: 0.5em;
+  /* should always be at the top left */
+  /* position: absolute; */
+  top: 0;
+  left: 0;
+}
+
+.search {
+  margin: 0 auto;
+  max-width: 800px;
+  padding: 1em;
+  /* should take 50% of the screen */
+  width: 50%;
+}
+
+.receip{
+  max-width: 800px;
+  max-height: 800px;
+  background-color: #afafaf;
+
+  padding: 1em;
+  width: 250px;
+  height: 250px;
+  box-shadow: 0 0 1em #00000022;
 }

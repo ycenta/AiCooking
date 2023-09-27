@@ -10,6 +10,8 @@ import ReceipList from './components/ReceipList'
 
 function App() {
   const [count, setCount] = useState(0)
+  const [receips, setReceips] = useState([])
+  const ingredientsRandom = [{text: "testingredient1"}, {text: "testingredient2"}, {text: "testingredient3"}]
 
   return (
     <>
@@ -21,11 +23,10 @@ function App() {
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
         </button>
-        <Button style={{backgroundColor: "red", color:"white"}} onClick={() => console.log('test')}/>
+        <button onClick={() => setReceips((receips) => [...receips, {name: "test", calories: 100, ingredients: ingredientsRandom}])}>  Add receip</button>
       </div>
 
-      <ReceipList/>
-    <Receip title="test" calories="test" />
+      <ReceipList receips={receips}/>
 
     </>
   )

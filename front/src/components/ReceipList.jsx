@@ -1,9 +1,13 @@
+import Receip from './Receip';
+
 export default function ReceipList(props) {
-    return (
+  return (
     <div className="receipList">
-       props.receips.map((receip, i) => {
-                  return <Receip key={i} title={receip.title} calories={receip.calories}/>
-         })
+         
+          {props.receips.map((receip) => {
+            return <Receip title={receip.name} calories={receip.calories} ingredients={receip.ingredients}/>
+          })}
+
     </div>
-    )
-  }
+  );}
+

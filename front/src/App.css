@@ -68,3 +68,10 @@
   height: 250px;
   box-shadow: 0 0 1em #00000022;
 }
+
+.receipList{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}

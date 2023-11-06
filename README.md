@@ -2,10 +2,9 @@
 
 ## Requirements
 
-- Docker
-- Docker Compose
+- node
 
-## Setup
+# Back setup 
 
 ```
 cd back
@@ -19,34 +18,15 @@ cp .env.example .env
 OPENAI_API_KEY="SQUEEZIEGAMING"
 ```
 
-## Docker Compose Services Startup
-
-```bash
-docker-compose up --detach
 ```
-
-## Node.js Modules Installation
-
-```bash
-docker-compose exec node npm install
+npm install
+npm run start
 ```
-
-## Node.js Entrypoint Start
-
-```bash
-docker-compose exec node npm start
-```
-
-## Docker Compose Services Shutdown
-
-```bash
-docker-compose down --remove-orphans --volumes
-```
-
 
 # Front setup 
-Now run:
 
+```
   cd front \
   npm install \
   npm run dev
+```

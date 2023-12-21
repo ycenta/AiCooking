@@ -3,6 +3,8 @@ import OpenAI from "openai";
 import { Router } from 'express'; // Utilisez l'import destructuré pour extraire Router
 import dotenv from 'dotenv';
 
+dotenv.config();
+
 const router = Router();
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
@@ -56,7 +58,7 @@ router.post('/get-courses', async (req, res) => {
           messages: [
               {
                   role: "system",
-                  content: "Bonjour, tu es expert en nourriture, lorsque je vais te donner une recette de cuisine, tu devra me génerer une liste de course intélligente"
+                  content: "Tu es expert en nourriture, lorsque je vais te donner une recette de cuisine ou un plat, tu devra me génerer une liste de course permettant de faire ce plat/recette,répond seulement la liste de course (au format JSON), pas de politesse ou de phrases inutile, seulement les ingrédients, si tu n'a pas d'idée répond avec une liste de course vide, ne pose pas de question en retour"
               },
               {
                   role: "user",

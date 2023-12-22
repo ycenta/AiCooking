@@ -96,12 +96,44 @@ router.post('/get-similar-recettes', async (req, res) => {
                 }
             ]
         });
+
+        res.send(completions.choices);
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');
     }
 
 });
+
+router.post('/assistant', async (req, res) => {
+    //assistant virtuel qui répond au question qu'on lui pose
+
+    console.log(req.body);
+    const message = req.body.message;
+
+    try{
+        const completions = await openai.chat.completions.create({
+            model: "gpt-3.5-turbo",
+            messages: [
+                {
+                    role: "system",
+                    content:"Bonjour, tu es chef étoilé au guide michelin ayant une 15aines d’années d’expérience dans le métier avec plusieurs concours culinaires gagnés à l’internationnal"
+                },
+                {
+                    role: "user",
+                    content: message
+                }
+            ]
+        });
+
+        res.send(completions.choices);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+
+});
+        
 
 
 

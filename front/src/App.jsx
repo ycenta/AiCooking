@@ -1,6 +1,4 @@
 import { useState, useContext, useEffect } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import Button from './components/Button'
 import SearchBar from './components/SearchBar'
@@ -12,21 +10,19 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { OpenAiContext } from  './contexts/api/OpenAiContext';
+import ChatWindow from './components/ChatWindow';
+import Chat from './assets/Chat.jsx';
 
 
 function App() {
-  const [count, setCount] = useState(0)
   const [receips, setReceips] = useState([])
   const ingredientsRandom = [{text: "testingredient1"}, {text: "testingredient2"}, {text: "testingredient3"}]
-
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [recipeContent, setRecipeContent] = useState("");
-
+  const [isChatOpen, setIsChatOpen] = useState(false);
   const { postCourses, openAiResponse } = useContext(OpenAiContext);
-
-
   const top100Films = [
     { title: 'The Shawshank Redemption', year: 1994 },
     { title: 'The Godfather', year: 1972 },
@@ -44,7 +40,6 @@ function App() {
     p: 4,
   };
 
-
   const handleGenerateList = async (recipeName) => {
     console.log("Generating list for recipe:", recipeName);
     setRecipeContent(recipeName);
@@ -54,7 +49,6 @@ function App() {
     await postCourses(payload); // Wait for the API call to finish
     handleOpen();
   };
-
 
   return (
     <>
@@ -69,17 +63,15 @@ function App() {
         renderInput={(params) => <TextField {...params} label="freeSolo" />}
       />
 
+      <ChatWindow open={isChatOpen} onClose={() => setIsChatOpen(false)} />
+
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
         <button onClick={() => setReceips((receips) => [...receips, {name: "crepes au chocolat", calories: 100, ingredients: ingredientsRandom}])}>  Add receip</button>
       </div>
 
       <ReceipList receips={receips} onGenerateList={handleGenerateList} />
 
 
-      {/* add modal */}
       <Modal open={open} onClose={handleClose}>
       <Box sx={style}>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
@@ -93,7 +85,9 @@ function App() {
         </Box>
       </Modal>
 
-      <Button text="Open modal" onClick={handleOpen}/>
+
+      <button className="chat-bubble" onClick={() => setIsChatOpen(true)}><Chat/>
+      </button>
 
     </>
   )

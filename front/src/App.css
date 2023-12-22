@@ -76,6 +76,12 @@
   align-items: center;
 }
 
+.chat-bubble{
+  position:fixed;
+  top: 90%;
+  left: 90%;
+}
+
 
 .parent {
   display: grid;

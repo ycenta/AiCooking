@@ -22,7 +22,7 @@ function App() {
   const handleClose = () => setOpen(false);
   const [recipeContent, setRecipeContent] = useState("");
   const [isChatOpen, setIsChatOpen] = useState(false);
-  const { postCourses, openAiResponse } = useContext(OpenAiContext);
+  const { postCourses, postQuestion, openAiResponse, isChatBotIsLoading, chatBotResponse } = useContext(OpenAiContext);
   const top100Films = [
     { title: 'The Shawshank Redemption', year: 1994 },
     { title: 'The Godfather', year: 1972 },
@@ -63,7 +63,7 @@ function App() {
         renderInput={(params) => <TextField {...params} label="freeSolo" />}
       />
 
-      <ChatWindow open={isChatOpen} onClose={() => setIsChatOpen(false)} />
+        <ChatWindow open={isChatOpen} onClose={() => setIsChatOpen(false)} />
 
       <div className="card">
         <button onClick={() => setReceips((receips) => [...receips, {name: "crepes au chocolat", calories: 100, ingredients: ingredientsRandom}])}>  Add receip</button>

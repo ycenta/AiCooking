@@ -1,5 +1,6 @@
 // ChatWindow.js
-import React, { useState } from 'react';
+import { useState, useContext, useEffect } from 'react';
+import { OpenAiContext } from '../contexts/api/OpenAiContext';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
@@ -11,24 +12,31 @@ import TextField from '@mui/material/TextField';
 const ChatWindow = ({ open, onClose }) => {
   const [userMessage, setUserMessage] = useState('');
   const [chatHistory, setChatHistory] = useState([]);
+  const { postQuestion, chatBotResponse } = useContext(OpenAiContext);
+
+
+  useEffect(() => {
+    if (chatBotResponse && chatBotResponse.message && chatBotResponse.message.content) {
+      const botResponse = chatBotResponse.message.content;
+      setChatHistory((prevHistory) => [...prevHistory, { user: false, message: botResponse }]);
+    }
+  }, [chatBotResponse]);
 
   const handleInputChange = (event) => {
     setUserMessage(event.target.value);
   };
 
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     if (userMessage.trim() !== '') {
       // Ajouter le message de l'utilisateur à l'historique du chat
       setChatHistory((prevHistory) => [...prevHistory, { user: true, message: userMessage }]);
       
-      // TODO: Appeler le service du bot pour obtenir la réponse du bot
-      // Simulons une réponse statique pour l'instant
-      const botResponse = "Bonjour! Comment puis-je vous aider?";
-      
-      // Ajouter la réponse du bot à l'historique du chat
-      setChatHistory((prevHistory) => [...prevHistory, { user: false, message: botResponse }]);
-
-      // vider l'input après l'envoi du message
+      // Appeler la méthode postQuestion du contexte pour obtenir la réponse du bot
+      const response = await postQuestion({
+        "message": userMessage
+      });
+  
+      // Vider l'input après l'envoi du message
       setUserMessage('');
     }
   };

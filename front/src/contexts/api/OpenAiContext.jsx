@@ -4,9 +4,11 @@ import apiCall from '../../axios';
 
 const initialState = {
   openAiResponse: null,
-  users: [],
-  isUserLoading: false,
-  isUsersLoading: false,
+  openAiResponses: [],
+  chatBotResponse: null,
+  isOpenAiLoading: false,
+  isOpenAisLoading: false,
+  isChatBotIsLoading: false,
 };
 
 export const OpenAiContext = createContext(initialState);
@@ -18,20 +20,25 @@ const reducer = (state, action) => {
         ...state,
         openAiResponse: action.payload,
       };
-    case 'users':
+    case 'openAiResponses':
       return {
         ...state,
-        users: action.payload,
+        openAiResponses: action.payload,
       };
-    case 'isUserLoading':
+    case 'isOpenAiLoading':
       return {
         ...state,
-        isUserLoading: action.payload,
+        isOpenAiLoading: action.payload,
       };
-    case 'isUsersLoading':
+    case 'chatBotResponse':
       return {
         ...state,
-        isUsersLoading: action.payload,
+        chatBotResponse: action.payload,
+      };
+    case 'isOpenAisLoading':
+      return {
+        ...state,
+        isOpenAisLoading: action.payload,
       };
     default:
       return state;
@@ -43,7 +50,7 @@ export function OpenAiProvider({ children }) {
 
   const postCourses = async (payload) => {
     dispatch({
-      type: 'isUserLoading',
+      type: 'isOpenAiLoading',
       payload: true,
     });
     try {
@@ -56,7 +63,28 @@ export function OpenAiProvider({ children }) {
       console.error(error);
     } finally {
       dispatch({
-        type: 'isUserLoading',
+        type: 'isOpenAiLoading',
+        payload: false,
+      });
+    }
+  };
+
+  const postQuestion = async (payload) => {
+    dispatch({
+      type: 'isChatBotIsLoading',
+      payload: true,
+    });
+    try {
+      const data = await apiCall.post('/openai/assistant', payload);
+      dispatch({
+        type: 'chatBotResponse',
+        payload: data.data[0]
+      });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      dispatch({
+        type: 'isChatBotIsLoading',
         payload: false,
       });
     }
@@ -65,10 +93,13 @@ export function OpenAiProvider({ children }) {
   return (
     <OpenAiContext.Provider value={{
       openAiResponse: state.openAiResponse,
-      users: state.users,
-      isUserLoading: state.isUserLoading,
-      isUsersLoading: state.isUsersLoading,
+      openAiResponses: state.openAiResponses,
+      isOpenAiLoading: state.isOpenAiLoading,
+      isOpenAisLoading: state.isOpenAisLoading,
+      isChatBotIsLoading: state.isChatBotIsLoading,
+      chatBotResponse: state.chatBotResponse,
       postCourses,
+      postQuestion
     }}>
       {children}
     </OpenAiContext.Provider>

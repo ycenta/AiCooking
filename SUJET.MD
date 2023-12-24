@@ -6,14 +6,14 @@ Vous êtes développeur chez "CuisineConnect",une startup spécialisée dans le 
 
 Fonctionnalités
 
-- **Interface graphique (2 points)** : développer une interface Web permettant aux utilisateurs d’interagir avec vos listes d’ingrédients,recettes,recommandations,etc…
+- **Interface graphique (2 points)** : développer une interface Web permettant aux utilisateurs d’interagir avec vos listes d’ingrédients,recettes,recommandations,etc… ✅
 - **Moteurde recherche intelligent (2 points)** : proposer à vos utilisateurs un moteur de recherche permettant de chercher vos recettes de manière intelligente par rapports à des recettes déjà stockées en base de données
 - **Recommandation de recettes intelligente (2 points)** : lors de la consultation d’une recette en particulier,proposer des recommandations intelligente de recettes similaires
 - **Gestion de compte utilisateur(2 points)** : les utilisateurs doivent pouvoir se connecter afin de sauvegarder leurs recettes favorites,ainsi que leur préférences alimentaires (allergies, contre-indications médicales,etc…)
 - **Système de notation et d’avis (2 points)** : chaque recette dois pouvoir être notée avec des commentaires
-- **Assistant virtuel (2 points)** : Un système de chatbot doit pouvoir être accessible à chaque endroit de votre application afin de pouvoir échanger avec les utilisateurs. Le chatbot doit correspondre à un chef étoilé au guide michelin ayant une 15aines d’années d’expérience dans le métier avec plusieurs concours culinaires gagnés à l’internationnal
+- **Assistant virtuel (2 points)** : Un système de chatbot doit pouvoir être accessible à chaque endroit de votre application afin de pouvoir échanger avec les utilisateurs. Le chatbot doit correspondre à un chef étoilé au guide michelin ayant une 15aines d’années d’expérience dans le métier avec plusieurs concours culinaires gagnés à l’internationnal ✅
 - **Proposition d’accompagnement (2 points)** : à chaque recette,proposer un bouton permettant de proposer des accompagnements intelligents aux recettes comme du vin,des desserts ou des fromages
-- **Générateurde liste de course (2 points)** : pour chaque recette,proposer un bouton permettant de générer une liste de course intelligente,il devra être possible de pouvoir partager la liste de recette sur des réseaux sociaux,dans un presse-papier,par email,etc…
+- **Générateurde liste de course (2 points)** : pour chaque recette,proposer un bouton permettant de générer une liste de course intelligente,il devra être possible de pouvoir partager la liste de recette sur des réseaux sociaux,dans un presse-papier,par email,etc… ✅
 
 Bonus
 

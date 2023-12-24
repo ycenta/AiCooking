@@ -3,14 +3,19 @@
 ## Requirements
 
 - node
+- docker
+- docker-compose
+
+# Db setup
+```
+cd db
+docker-compose up -d
+```
 
 # Back setup 
 
 ```
 cd back
-```
-
-```bash
 cp .env.example .env
 ```
 

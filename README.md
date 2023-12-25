@@ -8,7 +8,16 @@
 
 # Db setup
 ```
-cd db
+cp .env.example .env
+```
+Set .env file with 
+```
+POSTGRES_USER=POSTGRES_USER
+POSTGRES_PASSWORD=POSTGRES_PASSWORD
+POSTGRES_DB=POSTGRES_DB
+```
+then
+```
 docker-compose up -d
 ```
 
@@ -21,6 +30,9 @@ cp .env.example .env
 
 ```env
 OPENAI_API_KEY="SQUEEZIEGAMING"
+DB_USER=postgres
+DB_PASSWORD=postgres
+DB=postgres
 ```
 
 ```

@@ -1,6 +1,6 @@
 // Librairie nécessaire pour pouvoir utiliser l'API OpenAI depuis Node ou un navigateur
 import OpenAI from "openai";
-import { Router } from 'express'; // Utilisez l'import destructuré pour extraire Router
+import { Router } from 'express'; 
 import dotenv from 'dotenv';
 
 dotenv.config();

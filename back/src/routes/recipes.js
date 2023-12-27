@@ -14,10 +14,11 @@ const sequelize = new Sequelize(
 );
 
 
+import { Op } from "sequelize";
+
 router.get("/", async (req, res) => {
   try {
-
-    //Je set les models sequelize ici parce que ça marche ici
+    // Je set les models sequelize ici parce que ça marche ici
     const Recipe = sequelize.define("Recipe", {
       title: {
         type: Sequelize.STRING,
@@ -27,12 +28,24 @@ router.get("/", async (req, res) => {
       },
     });
 
-    const recipes = await Recipe.findAll();
-    res.json(recipes);
-
+    if (req.query.name) {
+      const recipe = await Recipe.findAll({
+        where: {
+          title: {
+            [Op.substring]: `${req.query.name}`,
+          },
+        },
+      });
+      res.json(recipe);
+    } else {
+      const recipes = await Recipe.findAll();
+      res.json(recipes);
+    }
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Une erreur est survenue lors de la récupération des recettes." });
+    res
+      .status(500)
+      .json({ message: "Une erreur est survenue lors de la récupération des recettes." });
   }
 });
 

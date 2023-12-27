@@ -10,6 +10,7 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { OpenAiContext } from  './contexts/api/OpenAiContext';
+import { RecipesContext } from  './contexts/api/RecipesContext';
 import ChatWindow from './components/ChatWindow';
 import Chat from './assets/Chat.jsx';
 
@@ -23,7 +24,9 @@ function App() {
   const [recipeContent, setRecipeContent] = useState("");
   const [isChatOpen, setIsChatOpen] = useState(false);
   const { postCourses, postQuestion, openAiResponse, isChatBotIsLoading, chatBotResponse } = useContext(OpenAiContext);
-  const top100Films = [
+  const { get, getByName, recipe, recipes, isRecipeLoading, isRecipesLoading } = useContext(RecipesContext);
+  const [search, setSearch] = useState("");
+  const recetteReco = [
     { title: 'The Shawshank Redemption', year: 1994 },
     { title: 'The Godfather', year: 1972 },
   ];
@@ -50,26 +53,44 @@ function App() {
     handleOpen();
   };
 
+  const handleSearchRecipes = () => {
+    console.log("Searching recipes for:", search);
+    getByName(search);
+    setSearch("");
+  };
+
+  useEffect(() => {
+    // get();
+  }
+  , []);
+
+
   return (
     <>
       <div className="mainTitle">
         <h1>Ai Cooking</h1>
       </div>
-    <SearchBar/> 
-    <Autocomplete
+      <Autocomplete
         id="free-solo-demo"
-        freeSolo
-        options={top100Films.map((option) => option.title)}
-        renderInput={(params) => <TextField {...params} label="freeSolo" />}
+        sx={{ width: '50%', margin: 'auto' }}
+        options={recetteReco.map((option) => option.title)}
+        value={search}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            label="Rechercher une recette"
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        )}
       />
 
         <ChatWindow open={isChatOpen} onClose={() => setIsChatOpen(false)} />
 
       <div className="card">
-        <button onClick={() => setReceips((receips) => [...receips, {name: "crepes au chocolat", calories: 100, ingredients: ingredientsRandom}])}>  Add receip</button>
+        <button onClick={handleSearchRecipes}>  Search Recipes </button>
       </div>
 
-      <ReceipList receips={receips} onGenerateList={handleGenerateList} />
+      <ReceipList receips={recipes} onGenerateList={handleGenerateList} />
 
 
       <Modal open={open} onClose={handleClose}>

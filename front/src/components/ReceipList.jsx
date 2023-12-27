@@ -6,7 +6,7 @@ export default function ReceipList(props) {
          
           {props.receips.map((receip, index) => {
             return <Receip key={index}
-            title={receip.name} calories={receip.calories} ingredients={receip.ingredients}
+            title={receip.title} calories={receip.calories} ingredients={receip.ingredients}
             onGenerateList={props.onGenerateList}
             />
           })}

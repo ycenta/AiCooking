@@ -13,11 +13,13 @@ export default function Receip(props) {
         <h3>{props.title}</h3>
         <p>{props.calories}</p>
         <ul>
-            {props.ingredients.map((ingredient,index) => {
+            {props.ingredients?.map((ingredient,index) => {
                 return <li key={index}>{ingredient.text}</li>
             })}
         </ul>
         <Button text="Generer une liste de course" onClick={handleGenerateList}/>
+        <br/>
+        <br/>
         <Button text="Proposer un accompagnement intelligent" onClick={() => console.log("proposer un accompagnement intelligent")}/>
     </div>
     )

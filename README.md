@@ -43,7 +43,13 @@ npm run start
 # Front setup 
 
 ```
-  cd front \
+  cd front
+```
+Create .env file with 
+```
+VITE_API="http://localhost:3000"
+```
+```
   npm install \
   npm run dev
 ```

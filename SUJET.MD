@@ -7,7 +7,7 @@ Vous êtes développeur chez "CuisineConnect",une startup spécialisée dans le 
 Fonctionnalités
 
 - **Interface graphique (2 points)** : développer une interface Web permettant aux utilisateurs d’interagir avec vos listes d’ingrédients,recettes,recommandations,etc… ✅
-- **Moteurde recherche intelligent (2 points)** : proposer à vos utilisateurs un moteur de recherche permettant de chercher vos recettes de manière intelligente par rapports à des recettes déjà stockées en base de données
+- **Moteurde recherche intelligent (2 points)** : proposer à vos utilisateurs un moteur de recherche permettant de chercher vos recettes de manière intelligente par rapports à des recettes déjà stockées en base de données ✅
 - **Recommandation de recettes intelligente (2 points)** : lors de la consultation d’une recette en particulier,proposer des recommandations intelligente de recettes similaires
 - **Gestion de compte utilisateur(2 points)** : les utilisateurs doivent pouvoir se connecter afin de sauvegarder leurs recettes favorites,ainsi que leur préférences alimentaires (allergies, contre-indications médicales,etc…)
 - **Système de notation et d’avis (2 points)** : chaque recette dois pouvoir être notée avec des commentaires

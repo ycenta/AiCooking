@@ -23,7 +23,7 @@ router.post('/register', async (req, res) => {
       return res.status(400).send('Format d\'email invalide');
     }
     
-    const existingUser = await User.findOne({ email });
+    const existingUser = await User.findOne({ where: { email } });
     if (existingUser) {
       return res.status(400).send('Cet email est déjà utilisé');
     }
@@ -41,7 +41,7 @@ router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ where: { email } });
     if (!user) {
       return res.status(404).send('Utilisateur non trouvé');
     }

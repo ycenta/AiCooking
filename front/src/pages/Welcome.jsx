@@ -13,7 +13,8 @@ import { OpenAiContext } from  '../contexts/api/OpenAiContext.jsx';
 import { RecipesContext } from  '../contexts/api/RecipesContext.jsx';
 import ChatWindow from '../components/ChatWindow.jsx';
 import Chat from '../assets/Chat.jsx';
-
+import styles from '../styles/Welcome.module.scss';
+import Header from '../components/Header';
 
 function Welcome() {
   const [receips, setReceips] = useState([])
@@ -67,6 +68,7 @@ function Welcome() {
 
   return (
     <>
+      <Header />
       <div className="mainTitle">
         <h1>Ai Cooking</h1>
       </div>

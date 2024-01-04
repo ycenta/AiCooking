@@ -15,7 +15,7 @@ import ChatWindow from '../components/ChatWindow.jsx';
 import Chat from '../assets/Chat.jsx';
 
 
-function App() {
+function Welcome() {
   const [receips, setReceips] = useState([])
   const ingredientsRandom = [{text: "testingredient1"}, {text: "testingredient2"}, {text: "testingredient3"}]
   const [open, setOpen] = useState(false);
@@ -114,4 +114,4 @@ function App() {
   )
 }
 
-export default App
+export default Welcome

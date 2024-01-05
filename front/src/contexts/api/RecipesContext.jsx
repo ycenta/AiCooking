@@ -41,7 +41,6 @@ const reducer = (state, action) => {
 export function RecipesProvider({ children }) {
   const [ state, dispatch ] = useReducer(reducer, initialState);
 
-
   const get = async (payload) => {
     dispatch({
       type: 'isRecipesLoading',

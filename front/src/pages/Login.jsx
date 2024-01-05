@@ -1,7 +1,6 @@
 import { useState, useContext } from 'react';
 import styles from '../styles/Login.module.scss';
 import Header from '../components/Header';
-import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../contexts/api/AuthContext';
 
 const Login = () => {
@@ -9,7 +8,6 @@ const Login = () => {
       email: '',
       password: '',
     });
-    const navigate = useNavigate();
     const { login } = useContext(AuthContext);
   
     const handleChange = (e) => {
@@ -22,7 +20,7 @@ const Login = () => {
       console.log(formData.email+"///"+formData.password);
       try {
         await login(formData.email, formData.password);
-        navigate('/');
+        window.location.replace("/");
       } catch (error) {
           console.error(error);
       }

@@ -1,25 +1,30 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
-  class User extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here
-    }
+import { Sequelize, DataTypes, Model } from 'sequelize';
+import dotenv from "dotenv";
+dotenv.config();
+
+const sequelize = new Sequelize("postgres://" +
+    process.env.DB_USER +
+    ":" +
+    process.env.DB_PASSWORD +
+    "@localhost:5470/" +
+    process.env.DB, {
+  dialect: 'postgres',
+});
+
+class User extends Model {
+  static associate(models) {
+    // define association here
   }
-  User.init({
-    firstName: DataTypes.STRING,
-    lastName: DataTypes.STRING,
-    email: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'User',
-  });
-  return User;
-};
+}
+
+User.init({
+  firstName: DataTypes.STRING,
+  lastName: DataTypes.STRING,
+  email: DataTypes.STRING,
+  password: DataTypes.STRING // Added password field
+}, {
+  sequelize,
+  modelName: 'User',
+});
+
+export default User;

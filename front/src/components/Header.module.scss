@@ -1,0 +1,22 @@
+.Header{
+    display: flex;
+    flex-direction: row;
+    min-width: 100%;
+
+    &Logo {
+        display: flex;
+        justify-content: flex-start;
+        transform: translateY(-25%);
+    }
+
+    &Actions {
+        position: absolute;
+        right: 0;
+        top: 0;
+        padding: 2rem;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 7rem;
+    }
+}

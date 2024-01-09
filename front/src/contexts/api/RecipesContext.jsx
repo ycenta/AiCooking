@@ -5,6 +5,7 @@ import apiCall from '../../axios';
 const initialState = {
     recipe: null,
     recipes: [],
+    recipeNotFound: null,
     isRecipeLoading: false,
     isRecipesLoading: false,
 };
@@ -33,6 +34,11 @@ const reducer = (state, action) => {
         ...state,
         isRecipesLoading: action.payload,
       };
+    case 'recipeNotFound':
+      return {
+        ...state,
+        recipeNotFound: action.payload,
+      }
     default:
       return state;
   }
@@ -91,10 +97,29 @@ export function RecipesProvider({ children }) {
     });
     try {
       const data = await apiCall.get(`/recipes?name=${payload}`);
-      dispatch({
-        type: 'recipes',
-        payload: data.data,
-      });
+
+      if (data.data.length>0) {
+        console.log(data.data);
+        dispatch({
+          type: 'recipes',
+          payload: data.data,
+        });
+        dispatch({
+          type: 'recipeNotFound',
+          payload: null
+        });
+      } else {
+        dispatch(
+          {
+            type: 'recipes', 
+            payload: data.data,
+          }
+        );
+        dispatch({
+          type: 'recipeNotFound',
+          payload: payload
+        });
+      }
     } catch (error) {
       console.error(error);
     } finally {
@@ -114,6 +139,7 @@ export function RecipesProvider({ children }) {
         getById,
         recipe: state.recipe,
         isRecipeLoading: state.isRecipeLoading,
+        recipeNotFound: state.recipeNotFound,
     }}>
       {children}
     </RecipesContext.Provider>

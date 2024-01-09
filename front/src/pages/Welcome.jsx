@@ -24,8 +24,8 @@ function Welcome() {
   const handleClose = () => setOpen(false);
   const [recipeContent, setRecipeContent] = useState("");
   const [isChatOpen, setIsChatOpen] = useState(false);
-  const { postCourses, postQuestion, openAiResponse, isChatBotIsLoading, chatBotResponse } = useContext(OpenAiContext);
-  const { get, getByName, recipe, recipes, isRecipeLoading, isRecipesLoading } = useContext(RecipesContext);
+  const { postCourses, postQuestion, openAiResponse, isChatBotIsLoading, chatBotResponse, postGenerateRecipe, tryAgainLater, generatedRecipe } = useContext(OpenAiContext);
+  const { get, getByName, recipe, recipes, isRecipeLoading, isRecipesLoading, recipeNotFound } = useContext(RecipesContext);
   const [search, setSearch] = useState("");
   const recetteReco = [
     { title: 'The Shawshank Redemption', year: 1994 },
@@ -60,6 +60,16 @@ function Welcome() {
     setSearch("");
   };
 
+  const handleGenerateRecipe = async () => {
+    const tmp = recipeNotFound;
+    const response = await postGenerateRecipe({
+      "recette": recipeNotFound
+    });
+    if ( response ) {
+      location.replace('/recipes/'+response);
+    }
+  }
+
   useEffect(() => {
     // get();
   }
@@ -88,8 +98,17 @@ function Welcome() {
 
         <ChatWindow open={isChatOpen} onClose={() => setIsChatOpen(false)} />
 
+      {tryAgainLater && (
+        <div className="errorGenerate">We had a problem with the generation of your recipe, please try again later</div>
+      )}
       <div className="card">
         <button onClick={handleSearchRecipes}>  Search Recipes </button>
+        { recipeNotFound && (
+          <div className="recipeNotExists">
+            <div className='errorGenerate'>Your recipe '{ recipeNotFound }' doesn't exists in our base you can click on the button below to generate it</div>
+            <button onClick={handleGenerateRecipe}>Generate recipe</button>
+          </div>
+        )}
       </div>
 
       <ReceipList receips={recipes} onGenerateList={handleGenerateList} />

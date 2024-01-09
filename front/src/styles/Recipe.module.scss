@@ -1,0 +1,21 @@
+.bodyRecipe{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 6rem;
+    margin-bottom: 3rem;
+
+    &Ingredients{
+        text-align: center;
+    }
+}
+.listSimilar{
+    list-style: none;
+}
+
+.openAiArea{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 6rem;
+}

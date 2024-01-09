@@ -7,6 +7,10 @@ export default function Receip(props) {
           props.onGenerateList(props.title); // Pass the recipe name to the parent component
         }
       };
+
+    const onRecipeClick = () => {
+      location.replace(`/recipes/${props.id}`);
+    };
     
     return (
     <div className="receip">
@@ -17,10 +21,7 @@ export default function Receip(props) {
                 return <li key={index}>{ingredient.text}</li>
             })}
         </ul>
-        <Button text="Generer une liste de course" onClick={handleGenerateList}/>
-        <br/>
-        <br/>
-        <Button text="Proposer un accompagnement intelligent" onClick={() => console.log("proposer un accompagnement intelligent")}/>
+        <Button text="Voir la recette" onClick={onRecipeClick}/>
     </div>
     )
   }

@@ -88,7 +88,7 @@ router.post('/get-similar-recettes', async (req, res) => {
             messages: [
                 {
                     role: "user",
-                    content: "Donne moi au moins un nom de recette sililaires à "+recette+" ta réponse doit être au format ['nom1', 'nom2', ...]"
+                    content: "Donne moi au moins un nom de recette sililaires à "+recette+" ta réponse doit être au format [\"nom1\", \"nom2\", ...] et uniquement composé de ce tableau, pas de politesse ou de phrases inutile, seulement les noms de recettes, si tu n'a pas d'idée répond avec un tableau vide, ne pose pas de question en retour"
                 }
             ]
         });

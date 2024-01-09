@@ -6,6 +6,7 @@ const initialState = {
   openAiResponse: null,
   openAiResponses: [],
   chatBotResponse: null,
+  similarRecipes: [],
   isOpenAiLoading: false,
   isOpenAisLoading: false,
   isChatBotIsLoading: false,
@@ -39,6 +40,11 @@ const reducer = (state, action) => {
       return {
         ...state,
         isOpenAisLoading: action.payload,
+      };
+    case 'similarRecipes':
+      return {
+        ...state,
+        similarRecipes: action.payload,
       };
     default:
       return state;
@@ -90,6 +96,28 @@ export function OpenAiProvider({ children }) {
     }
   };
 
+  const postSimilar = async (payload) => {
+    dispatch({
+      type: 'isOpenAisLoading',
+      payload: true,
+    });
+    try {
+      const data = await apiCall.post('/openai/get-similar-recettes', payload);
+      console.log(data.data[0].message.content);
+      dispatch({
+        type: 'similarRecipes',
+        payload: data.data[0].message.content
+      });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      dispatch({
+        type: 'isOpenAisLoading',
+        payload: false,
+      });
+    }
+  };
+
   return (
     <OpenAiContext.Provider value={{
       openAiResponse: state.openAiResponse,
@@ -98,6 +126,8 @@ export function OpenAiProvider({ children }) {
       isOpenAisLoading: state.isOpenAisLoading,
       isChatBotIsLoading: state.isChatBotIsLoading,
       chatBotResponse: state.chatBotResponse,
+      similarRecipes: state.similarRecipes,
+      postSimilar,
       postCourses,
       postQuestion
     }}>

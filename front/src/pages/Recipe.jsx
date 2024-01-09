@@ -8,6 +8,7 @@ function Recipe() {
 
     const { recipe, getById } = useContext(RecipesContext);
     const [error, setError] = useState(null);
+    const { similarRecipes, postSimilar } = useContext(OpenAiContext);
 
     useEffect(() => {
         const fetchRecipe = async () => {
@@ -44,8 +45,23 @@ function Recipe() {
                             ))}
                         </ul>
                     </div>
-
+                    <div>
+                        <button onClick={() => postSimilar({ "recette": recipe.title })}>Trouver des recettes similaires</button>
+                        {similarRecipes && (
+                            <div>
+                            <h2>Recettes Similaires : </h2>
+                            <ul>
+                                {similarRecipes && Object.keys(similarRecipes).length > 0 && (
+                                    JSON.parse(similarRecipes).map((recipe, index) => (
+                                        <li key={index}>{recipe}</li>
+                                    ))
+                                )}
+                            </ul>
+                            </div>
+                        )}
+                    </div>
                 </div>
+                
             )}
         </div>
     );

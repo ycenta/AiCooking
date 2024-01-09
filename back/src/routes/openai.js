@@ -87,12 +87,8 @@ router.post('/get-similar-recettes', async (req, res) => {
             model: "gpt-3.5-turbo",
             messages: [
                 {
-                    role: "system",
-                    content:"Bonjour, tu es export en nourriture, tu vas devoir me donner au moins une recette similaire (en format json) à celle que je t'ai fournie"
-                },
-                {
                     role: "user",
-                    content: recette
+                    content: "Donne moi au moins un nom de recette sililaires à "+recette+" ta réponse doit être au format ['nom1', 'nom2', ...]"
                 }
             ]
         });

@@ -9,7 +9,7 @@ function Recipe() {
 
     const { recipe, getById } = useContext(RecipesContext);
     const [error, setError] = useState(null);
-    const { similarRecipes, postSimilar } = useContext(OpenAiContext);
+    const { similarRecipes, postSimilar, accompagnementsList, postAccompagnement } = useContext(OpenAiContext);
 
     useEffect(() => {
         const fetchRecipe = async () => {
@@ -48,20 +48,37 @@ function Recipe() {
                             </ul>
                         </div>
                     </div>
-                    <div>
-                        {similarRecipes && (
-                            <div>
-                            <h2>Recettes Similaires : </h2>
-                            <ul className={styles.listSimilar}>
-                                {similarRecipes && Object.keys(similarRecipes).length > 0 && (
-                                    JSON.parse(similarRecipes).map((recipe, index) => (
-                                        <li key={index}>{recipe}</li>
-                                    ))
-                                )}
-                            </ul>
-                            </div>
-                        )}
-                        <button onClick={() => postSimilar({ "recette": recipe.title })}>Trouver des recettes similaires</button>
+                    <div className={styles.openAiArea}>
+                        <div>
+                            <button onClick={() => postSimilar({ "recette": recipe.title })}>Trouver des recettes similaires</button>
+                            {similarRecipes && Object.keys(similarRecipes).length > 0 && (
+                                <div>
+                                <h2>Recettes Similaires : </h2>
+                                <ul className={styles.listSimilar}>
+                                    {similarRecipes && Object.keys(similarRecipes).length > 0 && (
+                                        JSON.parse(similarRecipes).map((recipe, index) => (
+                                            <li key={index}>{recipe}</li>
+                                        ))
+                                    )}
+                                </ul>
+                                </div>
+                            )}
+                        </div>
+                        <div>
+                            <button onClick={() => postAccompagnement({ "recette": recipe.title })}>Trouver des accompagnements</button>
+                            {accompagnementsList && Object.keys(accompagnementsList).length > 0 && (
+                                <div>
+                                <h2>Recettes Similaires : </h2>
+                                <ul className={styles.listSimilar}>
+                                    {accompagnementsList && Object.keys(accompagnementsList).length > 0 && (
+                                        JSON.parse(accompagnementsList).map((recipe, index) => (
+                                            <li key={index}>{recipe}</li>
+                                        ))
+                                    )}
+                                </ul>
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
                 

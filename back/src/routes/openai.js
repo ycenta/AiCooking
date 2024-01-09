@@ -15,23 +15,19 @@ router.get('/', (req, res) => {
 });
 
 router.post('/accompagnement', async (req, res) => {
-    //Route pour proposer des accompagnements intelligents aux recettes comme du vin,des desserts ou des fromages
+  //Route pour proposer des accompagnements intelligents aux recettes comme du vin,des desserts ou des fromages
 
   console.log(req.body);
 
-  const recette = req.body.destination;
+  const recette = req.body.recette;
 
   try {
       const completions = await openai.chat.completions.create({
           model: "gpt-3.5-turbo",
           messages: [
               {
-                  role: "system",
-                  content: "Tu es chef de cuisine, ton role est de me proposer un accompagnement intelligent aux recettes que je te fournis, comme du vin, des desserts ou des fromages"
-              },
-              {
                   role: "user",
-                  content: recette
+                  content: "Propose moi au minimum un accompagnement tel que des vins, des fromages ou des desserts pour cette recette : "+recette+" ta réponse doit être au format [\"nom1\", \"nom2\", ...] et uniquement composé de ce tableau, pas de politesse ou de phrases inutile, seulement les noms de recettes, si tu n'a pas d'idée répond avec un tableau vide, ne pose pas de question en retour"
               }
           ]
       });
@@ -47,7 +43,7 @@ router.post('/accompagnement', async (req, res) => {
 
 router.post('/get-courses', async (req, res) => {
 
-    //route pour génerer des courses selon les recettes qu'on fourni
+  //route pour génerer des courses selon les recettes qu'on fourni
 
   console.log(req.body);
   const recette = req.body.recette;
@@ -118,6 +114,31 @@ router.post('/assistant', async (req, res) => {
                 {
                     role: "user",
                     content: message
+                }
+            ]
+        });
+
+        res.send(completions.choices);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+
+});
+
+router.post('/generate-recipe', async (req, res) => {
+    //assistant virtuel qui répond au question qu'on lui pose
+
+    console.log(req.body);
+    const recette = req.body.recette;
+
+    try{
+        const completions = await openai.chat.completions.create({
+            model: "gpt-3.5-turbo",
+            messages: [
+                {
+                    role: "user",
+                    content: "Génère moi une recette qui correspond à cette description : "+recette+" ta réponse doit être au format {\"title\":\"Nom\",\"description\":\"texte\",\"ingredients\":{\"ingredients1\":\"quantity\", \"ingredients2\":\"quantity\"},\"steps\":[\"step1\",\"step2\"]} et uniquement composé de ce tableau, pas de politesse ou de phrases inutile, seulement les noms de recettes, si tu n'a pas d'idée répond avec un tableau vide, ne pose pas de question en retour"
                 }
             ]
         });

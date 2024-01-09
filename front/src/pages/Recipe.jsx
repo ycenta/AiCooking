@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { RecipesContext } from '../contexts/api/RecipesContext.jsx';
 import { OpenAiContext } from  '../contexts/api/OpenAiContext.jsx';
+import Header from '../components/Header';
 import styles from '../styles/Recipe.module.scss';
 
 function Recipe() {
@@ -9,7 +10,7 @@ function Recipe() {
 
     const { recipe, getById } = useContext(RecipesContext);
     const [error, setError] = useState(null);
-    const { similarRecipes, postSimilar, accompagnementsList, postAccompagnement } = useContext(OpenAiContext);
+    const { similarRecipes, postSimilar, accompagnementsList, postAccompagnement, listCourse, postCourses } = useContext(OpenAiContext);
 
     useEffect(() => {
         const fetchRecipe = async () => {
@@ -25,6 +26,7 @@ function Recipe() {
 
     return (
         <div>
+            <Header />
             {error && <p>Error: {error}</p>}
             {recipe && (
                 <div>
@@ -72,6 +74,21 @@ function Recipe() {
                                 <ul className={styles.listSimilar}>
                                     {accompagnementsList && Object.keys(accompagnementsList).length > 0 && (
                                         JSON.parse(accompagnementsList).map((recipe, index) => (
+                                            <li key={index}>{recipe}</li>
+                                        ))
+                                    )}
+                                </ul>
+                                </div>
+                            )}
+                        </div>
+                        <div>
+                            <button onClick={() => postCourses({ "recette": recipe.title })}>Générer une liste de course</button>
+                            {listCourse && Object.keys(listCourse).length > 0 && (
+                                <div>
+                                <h2>Liste de course : </h2>
+                                <ul className={styles.listSimilar}>
+                                    {listCourse && Object.keys(listCourse).length > 0 && (
+                                        JSON.parse(listCourse).map((recipe, index) => (
                                             <li key={index}>{recipe}</li>
                                         ))
                                     )}

@@ -32,7 +32,7 @@ router.get("/", async (req, res) => {
       const recipe = await Recipe.findAll({
         where: {
           title: {
-            [Op.substring]: `${req.query.name}`,
+            [Op.iLike]: `%${req.query.name}%`,
           },
         },
       });

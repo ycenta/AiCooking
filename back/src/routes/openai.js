@@ -2,6 +2,7 @@
 import OpenAI from "openai";
 import { Router } from 'express'; 
 import dotenv from 'dotenv';
+import Recipe from '../../models/recipe.js';
 
 dotenv.config();
 
@@ -127,9 +128,6 @@ router.post('/assistant', async (req, res) => {
 });
 
 router.post('/generate-recipe', async (req, res) => {
-    //assistant virtuel qui répond au question qu'on lui pose
-
-    console.log(req.body);
     const recette = req.body.recette;
 
     try{
@@ -138,18 +136,51 @@ router.post('/generate-recipe', async (req, res) => {
             messages: [
                 {
                     role: "user",
-                    content: "Génère moi une recette qui correspond à cette description : "+recette+" ta réponse doit être au format {\"title\":\"Nom\",\"description\":\"texte\",\"ingredients\":{\"ingredients1\":\"quantity\", \"ingredients2\":\"quantity\"},\"steps\":[\"step1\",\"step2\"]} et uniquement composé de ce tableau, pas de politesse ou de phrases inutile, seulement les noms de recettes, si tu n'a pas d'idée répond avec un tableau vide, ne pose pas de question en retour"
+                    content: "Génère moi une recette qui correspond à cette description : "+recette+" ta réponse doit être au format {\"title\":\"Nom\",\"description\":\"texte\",\"ingredients\":{\"ingredients1\":\"quantity\", \"ingredients2\":\"quantity\"},\"steps\":[\"step1\",\"step2\"]} et uniquement composé de ce tableau, pas de politesse ou de phrases inutile, si tu n'a pas d'idée répond avec un tableau vide, ne pose pas de question en retour"
                 }
             ]
         });
 
-        res.send(completions.choices);
+        if ( !completions.choices[0].message.content ) {
+
+        } else {
+            try {
+                const generatedRecipe = completions.choices[0].message.content;
+                const parsedRecipe = JSON.parse(generatedRecipe);
+
+                if ( !generatedRecipe ) {
+                    res.status(404).send('Try again later');
+                }
+
+                const savedRecipe = await Recipe.create({
+                    title: parsedRecipe.title,
+                    description: parsedRecipe.description,
+                    ingredients: JSON.stringify(parsedRecipe.ingredients),
+                    steps: JSON.stringify(parsedRecipe.steps)
+                });
+
+                res.send(completions.choices);
+            } catch (error) {
+                res.status(404).send('Try again later');
+            }
+        }
+
+        
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');
     }
 
 });
+
+function isJSONString(str) {
+    try {
+        JSON.parse(str);
+        return true;
+    } catch (e) {
+        return false;
+    }
+}
         
 
 

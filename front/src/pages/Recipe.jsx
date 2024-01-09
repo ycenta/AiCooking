@@ -70,7 +70,7 @@ function Recipe() {
                             <button onClick={() => postAccompagnement({ "recette": recipe.title })}>Trouver des accompagnements</button>
                             {accompagnementsList && Object.keys(accompagnementsList).length > 0 && (
                                 <div>
-                                <h2>Recettes Similaires : </h2>
+                                <h2>Accompagnements possibles : </h2>
                                 <ul className={styles.listSimilar}>
                                     {accompagnementsList && Object.keys(accompagnementsList).length > 0 && (
                                         JSON.parse(accompagnementsList).map((recipe, index) => (

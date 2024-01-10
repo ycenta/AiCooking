@@ -12,6 +12,8 @@ function Recipe() {
     const [error, setError] = useState(null);
     const { similarRecipes, postSimilar, accompagnementsList, postAccompagnement, listCourse, postCourses } = useContext(OpenAiContext);
 
+    const [tweetUrl, setTweetUrl] = useState("");
+
     useEffect(() => {
         const fetchRecipe = async () => {
             try {
@@ -91,10 +93,17 @@ function Recipe() {
                                         JSON.parse(listCourse).map((recipe, index) => (
                                             <li key={index}>{recipe}</li>
                                         ))
-                                    )}
+                                    )                                    
+                                    }                                        
+                                       
                                 </ul>
                                 </div>
                             )}
+                            {listCourse && Object.keys(listCourse).length > 0 && (
+                                 <a class="twitter-share-button"
+                                 href={"https://twitter.com/intent/tweet?text="+encodeURIComponent(listCourse)}>
+                                 Tweet</a>
+                                 )}
                         </div>
                     </div>
                 </div>
